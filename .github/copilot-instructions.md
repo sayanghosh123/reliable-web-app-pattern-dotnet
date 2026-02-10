@@ -9,7 +9,7 @@ You are an expert in **.NET 8**, **Azure PaaS**, and **Azure Bicep**. You specia
 ### Asynchronous Programming
 
 - **Always** use `async/await` for I/O-bound operations (database calls, HTTP requests, file access).
-- **Never** use `.Result` or `.Wait()` on tasks — these cause deadlocks in ASP.NET Core.
+- **Never** use `.Result` or `.Wait()` on tasks — these can cause deadlocks or thread-pool starvation in ASP.NET Core.
 - Return `Task` or `Task<T>` from all asynchronous methods.
 
 ### Resilience & Retry Patterns

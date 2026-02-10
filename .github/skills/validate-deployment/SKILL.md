@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Run the deployment health-check script to verify that the Azure environment was provisioned and deployed correctly. The script checks resource group existence, App Service settings, App Configuration connectivity, and provides troubleshooting recommendations for known issues.
+Run the deployment health-check script to verify that the Azure environment was provisioned and deployed correctly. The script checks resource group existence, validates App Service settings (including that the required App Configuration URIs are set), and provides troubleshooting recommendations for known issues.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ Determine the resource group name for the deployed environment, then run the scr
 **Bash:**
 
 ```bash
-./testscripts/validate-deployment.sh <resource-group-name>
+./testscripts/validate-deployment.sh --resource-group <resource-group-name>
 ```
 
 The `-ResourceGroupName` parameter (aliased as `-g`) is required. It is the name of the resource group created by the `azd` command.
@@ -56,6 +56,6 @@ The `-ResourceGroupName` parameter (aliased as `-g`) is required. It is the name
 If the validation script reports failures, check the following:
 
 - **Firewall rules:** Ensure the Azure Firewall in the hub network allows outbound traffic to required Azure service FQDNs. Review `infra/modules/hub-network.bicep` for firewall configuration.
-- **Key Vault access policies:** Verify that the application's Managed Identity has the correct role assignments to read secrets from Key Vault. Review `infra/modules/grant-secret-user.bicep`.
+- **Key Vault access (RBAC role assignments):** Verify that the application's Managed Identity has the appropriate Key Vault Secrets User (or equivalent) role assignment scoped to the required secrets or Key Vault. Review `infra/modules/grant-secret-user.bicep`.
 - **Private endpoint DNS:** Confirm that private DNS zones are correctly linked to the spoke VNet. Review `infra/modules/private-dns-zones.bicep`.
 - **Re-provision:** Many transient deployment issues can be resolved by re-running `azd provision`.

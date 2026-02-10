@@ -99,10 +99,10 @@ After deploying, run the health-check script to verify the environment:
 **Bash:**
 
 ```bash
-./testscripts/validate-deployment.sh <your-resource-group-name>
+./testscripts/validate-deployment.sh --resource-group <your-resource-group-name>
 ```
 
-This script checks that the resource group exists, validates App Service settings, verifies App Configuration connectivity, and provides troubleshooting recommendations for known issues.
+This script checks that the resource group exists, validates App Service settings (including that the required App Configuration URIs are set), and provides troubleshooting recommendations for known issues.
 
 ### Provision Only (No Code Deploy)
 
